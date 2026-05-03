@@ -1,0 +1,305 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================
+   MOOD LIFE THEMING
+   Three modes: dark (default), night, day.
+   Each mode adjusts the mesh gradient intensity and the
+   transparency of glassmorphic elements.
+   ================================================================ */
+
+@layer base {
+  /* --- Default / Dark mode (deep violet + dark blue) --- */
+  :root,
+  :root[data-mood="dark"] {
+    --background: 245 40% 6%;
+    --foreground: 220 25% 95%;
+
+    --card: 245 35% 11%;
+    --card-foreground: 220 25% 95%;
+
+    --popover: 245 35% 11%;
+    --popover-foreground: 220 25% 95%;
+
+    --primary: 265 75% 68%;
+    --primary-foreground: 245 40% 6%;
+
+    --secondary: 235 40% 22%;
+    --secondary-foreground: 220 20% 90%;
+
+    --muted: 240 25% 18%;
+    --muted-foreground: 230 15% 65%;
+
+    --accent: 280 65% 60%;
+    --accent-foreground: 220 25% 96%;
+
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 25% 22%;
+    --input: 240 25% 22%;
+    --ring: 265 75% 68%;
+
+    --radius: 0.875rem;
+
+    /* Glass tokens */
+    --glass-bg: 245 35% 14%;
+    --glass-border: 0 0% 100%;
+    --glass-bg-opacity: 0.45;
+    --glass-border-opacity: 0.12;
+    --glass-blur: 24px;
+
+    --progress-track: 240 25% 16%;
+    --progress-fill-from: 265 75% 65%;
+    --progress-fill-to: 285 65% 60%;
+    --hero-glow: 265 90% 65%;
+
+    /* Mesh gradient stops (deep purple + dark blue) */
+    --mesh-1: 265 80% 18%;
+    --mesh-2: 230 75% 14%;
+    --mesh-3: 280 70% 22%;
+    --mesh-4: 245 60% 8%;
+    --mesh-base: 245 50% 6%;
+    --mesh-intensity: 0.85;
+
+    --sidebar-background: 245 35% 9%;
+    --sidebar-foreground: 220 20% 88%;
+    --sidebar-primary: 265 75% 68%;
+    --sidebar-primary-foreground: 245 40% 6%;
+    --sidebar-accent: 240 25% 18%;
+    --sidebar-accent-foreground: 220 20% 88%;
+    --sidebar-border: 240 25% 22%;
+    --sidebar-ring: 265 75% 68%;
+  }
+
+  /* --- Night mode: deeper, more saturated, very translucent glass --- */
+  :root[data-mood="night"] {
+    --background: 250 55% 4%;
+    --foreground: 220 25% 96%;
+
+    --card: 250 45% 9%;
+    --card-foreground: 220 25% 96%;
+
+    --primary: 270 80% 70%;
+    --accent: 285 70% 62%;
+
+    --muted: 245 30% 15%;
+    --muted-foreground: 230 18% 70%;
+
+    --border: 245 30% 20%;
+    --input: 245 30% 20%;
+
+    --glass-bg: 250 40% 12%;
+    --glass-border: 0 0% 100%;
+    --glass-bg-opacity: 0.32;
+    --glass-border-opacity: 0.10;
+    --glass-blur: 30px;
+
+    --mesh-1: 270 90% 22%;
+    --mesh-2: 230 85% 16%;
+    --mesh-3: 290 80% 26%;
+    --mesh-4: 250 70% 7%;
+    --mesh-base: 250 60% 4%;
+    --mesh-intensity: 1;
+  }
+
+  /* --- Day mode: lighter, lower-saturation gradient. Foreground stays
+        readable by mixing dark grey text on lightly-tinted surfaces.
+        Glassmorphism is preserved with stronger blur + grey/dark mixed
+        text so content stays legible on the brighter background. --- */
+  :root[data-mood="day"] {
+    --background: 235 45% 92%;
+    --foreground: 240 30% 18%;        /* dark grey/navy text */
+
+    --card: 235 40% 96%;
+    --card-foreground: 240 30% 18%;
+
+    --popover: 235 40% 96%;
+    --popover-foreground: 240 30% 18%;
+
+    --primary: 265 65% 52%;            /* darker violet for contrast */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 235 35% 85%;
+    --secondary-foreground: 240 30% 22%;
+
+    --muted: 235 30% 88%;
+    --muted-foreground: 240 15% 38%;   /* mid grey, readable */
+
+    --accent: 280 55% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --border: 240 20% 75%;
+    --input: 240 20% 80%;
+    --ring: 265 65% 52%;
+
+    --glass-bg: 235 50% 96%;
+    --glass-border: 240 30% 30%;       /* darker border for definition */
+    --glass-bg-opacity: 0.55;
+    --glass-border-opacity: 0.18;
+    --glass-blur: 22px;
+
+    --progress-track: 235 25% 82%;
+    --progress-fill-from: 265 65% 55%;
+    --progress-fill-to: 285 55% 50%;
+    --hero-glow: 265 75% 60%;
+
+    --mesh-1: 265 70% 78%;
+    --mesh-2: 225 75% 80%;
+    --mesh-3: 290 60% 82%;
+    --mesh-4: 240 50% 88%;
+    --mesh-base: 235 45% 92%;
+    --mesh-intensity: 0.55;
+
+    --sidebar-background: 235 40% 94%;
+    --sidebar-foreground: 240 30% 22%;
+    --sidebar-accent: 235 30% 88%;
+    --sidebar-accent-foreground: 240 30% 22%;
+    --sidebar-border: 240 20% 75%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    @apply text-foreground antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+      "SF Pro Text", "SF Pro", "Helvetica Neue", "Inter", system-ui, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.01em;
+
+    /* Mesh gradient: layered radial gradients on top of a base color.
+       Intensity is controlled per-mood via --mesh-intensity. */
+    background-color: hsl(var(--mesh-base));
+    background-image:
+      radial-gradient(at 18% 22%, hsl(var(--mesh-1) / var(--mesh-intensity)) 0px, transparent 55%),
+      radial-gradient(at 82% 18%, hsl(var(--mesh-2) / var(--mesh-intensity)) 0px, transparent 55%),
+      radial-gradient(at 75% 82%, hsl(var(--mesh-3) / var(--mesh-intensity)) 0px, transparent 55%),
+      radial-gradient(at 22% 78%, hsl(var(--mesh-4) / var(--mesh-intensity)) 0px, transparent 55%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply rounded-2xl border;
+    background: hsl(var(--glass-bg) / var(--glass-bg-opacity));
+    border-color: hsl(var(--glass-border) / var(--glass-border-opacity));
+    border-width: 1px;
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    box-shadow:
+      0 1px 0 0 hsl(var(--glass-border) / calc(var(--glass-border-opacity) * 1.5)) inset,
+      0 10px 40px -10px hsl(0 0% 0% / 0.35);
+  }
+
+  .glass-input {
+    @apply rounded-xl px-4 py-3 text-sm transition-all duration-200 outline-none border;
+    background: hsl(var(--glass-bg) / calc(var(--glass-bg-opacity) * 0.85));
+    border-color: hsl(var(--glass-border) / var(--glass-border-opacity));
+    color: hsl(var(--foreground));
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  }
+
+  .glass-input:focus {
+    border-color: hsl(var(--primary) / 0.7);
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.18);
+  }
+
+  .glass-input::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .hero-button {
+    @apply relative px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 cursor-pointer;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 0 30px hsl(var(--hero-glow) / 0.35);
+    border: 1px solid hsl(var(--glass-border) / var(--glass-border-opacity));
+  }
+
+  .hero-button:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 50px hsl(var(--hero-glow) / 0.55);
+  }
+
+  .hero-button:active {
+    transform: scale(0.98);
+  }
+
+  .progress-bar-track {
+    @apply rounded-full h-3 overflow-hidden;
+    background: hsl(var(--progress-track));
+  }
+
+  .progress-bar-fill {
+    @apply h-full rounded-full transition-all duration-500 ease-out;
+    background: linear-gradient(90deg, hsl(var(--progress-fill-from)), hsl(var(--progress-fill-to)));
+  }
+
+  .objective-done {
+    @apply line-through;
+    opacity: 0.45;
+  }
+
+  /* Subtle "open link" caption — small violet pill styled link */
+  .open-link-caption {
+    @apply inline-flex items-center gap-1 mt-2 text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-200;
+    color: hsl(var(--primary));
+    background: hsl(var(--primary) / 0.12);
+    border: 1px solid hsl(var(--primary) / 0.25);
+  }
+  .open-link-caption:hover {
+    background: hsl(var(--primary) / 0.2);
+    transform: translateY(-1px);
+  }
+}
+
+@layer utilities {
+  .animate-hero-enter {
+    animation: heroEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes heroEnter {
+    from { opacity: 0; transform: translateY(30px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .animate-hero-exit {
+    animation: heroExit 0.4s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+  }
+
+  @keyframes heroExit {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(1.1); }
+  }
+
+  .animate-slide-archive {
+    animation: slideArchive 0.5s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+    pointer-events: none;
+  }
+
+  @keyframes slideArchive {
+    0%   { opacity: 1; transform: translateX(0)    scale(1);    max-height: 200px; margin-bottom: 0.75rem; }
+    60%  { opacity: 0.4; transform: translateX(120%) scale(0.95); }
+    100% { opacity: 0; transform: translateX(140%) scale(0.9); max-height: 0; margin-bottom: 0; padding: 0; }
+  }
+}
